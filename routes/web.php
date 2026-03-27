@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 
 require __DIR__ . '/auth.php';
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
 Route::get('/products', [ProductsController::class, 'index'])
     ->name('products.index');
 Route::get('/products/{product}', [ProductsController::class, 'show'])
@@ -19,3 +20,24 @@ Route::post('/cart/update/{id}', [CartController::class, 'update'])->name('cart.
 Route::post('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
 Route::get('/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
 Route::post('/checkout', [CartController::class, 'processCheckout'])->name('cart.process');
+Route::prefix('admin')->middleware('auth')->group(function () {
+
+    Route::get('/products', [ProductsController::class, 'adminIndex'])
+        ->name('admin.products');
+
+    Route::get('/products/create', [ProductsController::class, 'create'])
+        ->name('admin.products.create');
+
+    Route::post('/products', [ProductsController::class, 'store'])
+        ->name('admin.products.store');
+
+    Route::get('/products/{product}/edit', [ProductsController::class, 'edit'])
+        ->name('admin.products.edit');
+
+    Route::post('/products/{product}', [ProductsController::class, 'update'])
+        ->name('admin.products.update');
+
+    Route::post('/products/{product}/delete', [ProductsController::class, 'destroy'])
+        ->name('admin.products.delete');
+
+});

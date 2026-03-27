@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tech Store</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('/css/bootstrap.min.css') }}">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
@@ -18,6 +18,13 @@
                 <li class="nav-item"><a class="nav-link" href="{{ route('products.index') }}">Products</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/about') }}">About</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ url('/contact') }}">Contact</a></li>
+                @auth
+<li class="nav-item">
+    <a class="btn btn-dark ms-2" href="{{ route('admin.products') }}">
+         Admin
+    </a>
+</li>
+@endauth
                 @guest
                     <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
@@ -58,6 +65,6 @@
         <p class="mb-0">&copy; 2026 TechStore. All rights reserved.</p>
     </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>
